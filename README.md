@@ -1,2 +1,2 @@
 # DoNotForgetMe
-Implémentation du jeu "Memory" en Javascript.
+Implémentation du jeu "Memory" en JavaScript.
