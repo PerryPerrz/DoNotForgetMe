@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #6563ff;
+}
+
+.wrapper {
+    height: 400px;
+    width: 400px;
+    padding: 25px;
+    background: #f8f8f8;
+    border-radius: 10px;
+}
+
+.cards,
+.card,
+.view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cards {
+    height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cards .card {
+    cursor: pointer;
+    position: relative;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    height: calc(100% / 4 - 10px);
+    width: calc(100% / 4 - 10px);
+}
+
+.cards .card .view {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    backface-visibility: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    background: #fff;
+    transition: transform 0.25s linear;
+}
+
+.cards .front-view span {
+    font-size: 40px;
+    color: #6563ff;
+}
+
+.card .back-view {
+    transform: rotateY(-180deg);
+}
+
+.card .back-view img {
+    max-width: 45px;
+}
+
+.card:hover .front-view {
+    transform: rotateY(180deg);
+}
+
+.card:hover .back-view {
+    transform: rotateY(0deg);
+}
