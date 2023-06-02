@@ -47,9 +47,32 @@ body {
     width: calc(100% / 4 - 10px);
 }
 
+.card.shake {
+    animation: shake 0.35s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-12px);
+    }
+    40% {
+        transform: translateX(12px);
+    }
+    60% {
+        transform: translateX(-8px);
+    }
+    80% {
+        transform: translateX(8px);
+    }
+}
+
 .cards .card .view {
     height: 100%;
     width: 100%;
+    user-select: none;
+    pointer-events: none;
     border-radius: 8px;
     backface-visibility: hidden;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -71,10 +94,10 @@ body {
     max-width: 45px;
 }
 
-.card:hover .front-view {
+.card.flip .front-view {
     transform: rotateY(180deg);
 }
 
-.card:hover .back-view {
+.card.flip .back-view {
     transform: rotateY(0deg);
 }
