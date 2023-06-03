@@ -68,6 +68,27 @@ body {
     }
 }
 
+.card.victory {
+    animation: victory 0.35s ease-in-out;
+}
+@keyframes victory {
+    0%, 100% {
+        transform: scale(1);
+    }
+    20% {
+        transform: scale(1.2);
+    }
+    40% {
+        transform: scale(0.8);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    80% {
+        transform: scale(0.9);
+    }
+}
+
 .cards .card .view {
     height: 100%;
     width: 100%;

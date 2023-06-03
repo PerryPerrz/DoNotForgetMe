@@ -10,7 +10,7 @@ function flipCard(e) {
 
     // Check if the user clicked the same card
     if (clickedCard !== firstCard && !disableCards) {
-        clickedCard.classList.toggle("flip");
+        clickedCard.classList.add("flip");
 
         if (!firstCard) {
             return firstCard = clickedCard;
@@ -30,6 +30,23 @@ function flipCard(e) {
 // Function to check if the cards match
 function matchCards(card1, card2) {
     if (card1 === card2) {
+        // Disable the cards temporarily
+        disableCards = true;
+
+        // Animate the cards if they match
+        setTimeout(() => {
+            // Add the victory animation class to the cards after 400ms
+            firstCard.classList.add("victory");
+            secondCard.classList.add("victory");
+
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            firstCard = secondCard = ""; // Reset the cards
+
+            // Enable the cards after 400ms
+            disableCards = false;
+        }, 400);
+
         matchedCards++;
         if (matchedCards == 8) {
             // the user won
@@ -37,23 +54,20 @@ function matchCards(card1, card2) {
                 return shuffleCards(); // call the shuffle function after 1000ms
             }, 1000);
         }
-        firstCard.removeEventListener('click', flipCard);
-        secondCard.removeEventListener('click', flipCard);
-        firstCard = secondCard = ""; // Reset the cards
-        return disableCards = false;
+        return;
     }
 
     // Shake the cards if they don't match
     setTimeout(() => {
         // Add the shake class to the cards after 400ms
-        firstCard.classList.toggle("shake");
-        secondCard.classList.toggle("shake");
+        firstCard.classList.add("shake");
+        secondCard.classList.add("shake");
     }, 400);
 
     setTimeout(() => {
         // Remove the shake and flip class after 1200ms
-        firstCard.classList.remove("shake", "flip");
-        secondCard.classList.remove("shake", "flip");
+        firstCard.classList.remove("shake", "victory", "flip");
+        secondCard.classList.remove("shake", "victory", "flip");
         firstCard = secondCard = ""; // Reset the cards
         disableCards = false;
     }, 1200);
