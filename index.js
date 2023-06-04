@@ -1,12 +1,16 @@
 const cards = document.querySelectorAll('.card'),
     timer = document.querySelector(".timer span"),
     flip = document.querySelector(".flip span"),
+    memory = document.querySelector(".memory span"),
     resetBtn = document.querySelector(".reset");
 
 let matchedCards = 0;
 let firstCard, secondCard;
 let disableCards = false;
 let flipCount = 0;
+
+let memoryCompleted = 0;
+memory.textContent = memoryCompleted;
 
 // Function to flip the card
 function flipCard(e) {
@@ -56,6 +60,10 @@ function matchCards(card1, card2) {
 
         matchedCards++;
         if (matchedCards == 8) {
+            // Update the memory count
+            memoryCompleted++;
+            memory.textContent = memoryCompleted;
+
             // the user won
             setTimeout(() => {
                 return shuffleCards(); // call the shuffle function after 1000ms
