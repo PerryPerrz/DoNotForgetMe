@@ -1,11 +1,18 @@
-const cards = document.querySelectorAll('.card');
+const cards = document.querySelectorAll('.card'),
+    timer = document.querySelector(".timer span"),
+    flip = document.querySelector(".flip span"),
+    resetBtn = document.querySelector(".reset");
 
 let matchedCards = 0;
 let firstCard, secondCard;
 let disableCards = false;
+let flipCount = 0;
 
 // Function to flip the card
 function flipCard(e) {
+    flipCount++;
+    flip.textContent = flipCount;
+
     let clickedCard = e.target; // Get the clicked card by the user
 
     // Check if the user clicked the same card
@@ -75,6 +82,8 @@ function matchCards(card1, card2) {
 
 // Function to shuffle the cards
 function shuffleCards() {
+    flipCount = 0;
+    flip.textContent = flipCount;
     matchedCards = 0;
     firstCard = secondCard = "";
     disableCards = false;
@@ -98,3 +107,6 @@ shuffleCards(); // Call the shuffle function
 cards.forEach(card => {
     card.addEventListener('click', flipCard);
 });
+
+// Setup event listeners
+resetBtn.addEventListener("click", shuffleCards);
