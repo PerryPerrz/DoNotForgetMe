@@ -12,6 +12,52 @@ let flipCount = 0;
 let memoryCompleted = 0;
 memory.textContent = memoryCompleted;
 
+let countdown = undefined;
+let timerInterval = undefined;
+
+// Function who update the timer
+function updateTime() {
+    timer.innerText = countdown;
+
+    // Check if the timer is up
+    if (countdown === 0) {
+        // Reset memory count
+        memoryCompleted = 0;
+        memory.textContent = memoryCompleted;
+
+        clearInterval(timerInterval);
+
+        alert("Game Over !", "Time is up !");
+
+        // Reset the game
+        resetGame();
+
+        alert("New game has started !")
+        shuffleCards();
+    } else {
+        countdown--;
+    }
+}
+
+// Function to reset the game
+function resetGame() {
+    flipCount = 0;
+    flip.textContent = flipCount;
+
+    matchedCards = 0;
+    firstCard = secondCard = "";
+    disableCards = false;
+}
+
+// Function to start a new game
+function startingNewGame() {
+    // Reset memory count
+    memoryCompleted = 0;
+    memory.textContent = memoryCompleted;
+
+    shuffleCards();
+}
+
 // Function to flip the card
 function flipCard(e) {
     flipCount++;
@@ -77,12 +123,15 @@ function matchCards(card1, card2) {
         // Add the shake class to the cards after 400ms
         firstCard.classList.add("shake");
         secondCard.classList.add("shake");
+
+        firstCard.classList.remove("victory");
+        secondCard.classList.remove("victory");
     }, 400);
 
     setTimeout(() => {
         // Remove the shake and flip class after 1200ms
-        firstCard.classList.remove("shake", "victory", "flip");
-        secondCard.classList.remove("shake", "victory", "flip");
+        firstCard.classList.remove("shake", "flip");
+        secondCard.classList.remove("shake", "flip");
         firstCard = secondCard = ""; // Reset the cards
         disableCards = false;
     }, 1200);
@@ -90,11 +139,17 @@ function matchCards(card1, card2) {
 
 // Function to shuffle the cards
 function shuffleCards() {
-    flipCount = 0;
-    flip.textContent = flipCount;
-    matchedCards = 0;
-    firstCard = secondCard = "";
-    disableCards = false;
+    // Reset timer
+    timerInterval = clearInterval(timerInterval);
+    countdown = 90;
+    timer.innerText = countdown;
+
+    // start the timer every 1 second
+    timerInterval = setInterval(updateTime, 1000);
+
+    // Reset the game
+    resetGame();
+
     let arr = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
     arr.sort(() => Math.random() > 0.5 ? 1 : -1); // Shuffle the array randomly
 
@@ -117,4 +172,4 @@ cards.forEach(card => {
 });
 
 // Setup event listeners
-resetBtn.addEventListener("click", shuffleCards);
+resetBtn.addEventListener("click", startingNewGame);
