@@ -158,7 +158,7 @@ function shuffleCards() {
         card.classList.remove("flip");
 
         let imgTag = card.querySelector('.back-view img');
-        imgTag.src = `assets/gems/img-${arr[index]}.png`;
+        imgTag.src = `assets/cards/img-${arr[index]}.png`;
 
         card.addEventListener('click', flipCard);
     });
